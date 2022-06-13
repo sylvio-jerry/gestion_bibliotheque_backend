@@ -8,10 +8,10 @@ datasource db {
 }
 
 model adhesions {
-  id         BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  id         Int      @id @default(autoincrement())
   droit      Int
   annee      Int
-  lecteur_id BigInt   @db.UnsignedBigInt
+  lecteur_id Int
   created_at DateTime @default(now()) @db.Timestamp(0)
   updated_at DateTime @default(now()) @db.Timestamp(0)
   lecteurs   lecteurs @relation(fields: [lecteur_id], references: [id], onDelete: Cascade, map: "fk1_LECTEUR")
@@ -20,22 +20,20 @@ model adhesions {
 }
 
 model bibliothecaires {
-  id             BigInt       @id @default(autoincrement()) @db.UnsignedBigInt
+  id             Int          @id @default(autoincrement())
   im             String       @db.VarChar(25)
   pseudo         String       @db.VarChar(25)
-  utilisateur_id BigInt       @db.UnsignedBigInt
+  utilisateur_id Int
   created_at     DateTime     @default(now()) @db.Timestamp(0)
   updated_at     DateTime     @default(now()) @db.Timestamp(0)
-  utilisateurs   utilisateurs @relation(fields: [utilisateur_id], references: [id], onDelete: Cascade, map: "fk1_UTILISATEUR")
+  utilisateurs   utilisateurs @relation(fields: [utilisateur_id], references: [id], onUpdate: Restrict, map: "fk1_UTILISATEUR")
 
   @@index([utilisateur_id], map: "utilisateur_id")
-  @@index([utilisateur_id], map: "utilisateur_id_2")
-  @@index([utilisateur_id], map: "utilisateur_id_3")
 }
 
 model consultations {
-  id          BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
-  livre_id    BigInt    @db.UnsignedBigInt
+  id          Int       @id @default(autoincrement())
+  livre_id    Int
   date_cons   DateTime  @db.Date
   heure_debut DateTime  @db.Time(0)
   heur_fin    DateTime? @db.Time(0)
@@ -47,7 +45,7 @@ model consultations {
 }
 
 model lecteurs {
-  id              BigInt      @id @default(autoincrement()) @db.UnsignedBigInt
+  id              Int         @id @default(autoincrement())
   num_lecteur     String      @db.VarChar(25)
   nom_lecteur     String      @db.VarChar(40)
   prenom_lecteur  String?     @db.VarChar(40)
@@ -60,11 +58,11 @@ model lecteurs {
 }
 
 model livres {
-  id            BigInt          @id @default(autoincrement()) @db.UnsignedBigInt
+  id            Int             @id @default(autoincrement())
   num_livre     String          @db.VarChar(25)
   disponible    Boolean         @default(true)
   nb_pret       Int             @default(0)
-  ouvrage_id    BigInt          @db.UnsignedBigInt
+  ouvrage_id    Int
   created_at    DateTime        @default(now()) @db.Timestamp(0)
   updated_at    DateTime        @default(now()) @db.Timestamp(0)
   ouvrages      ouvrages        @relation(fields: [ouvrage_id], references: [id], onDelete: Cascade, map: "fk1_OUVRAGE")
@@ -75,7 +73,7 @@ model livres {
 }
 
 model ouvrages {
-  id           BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  id           Int       @id @default(autoincrement())
   titre        String    @db.VarChar(40)
   auteur       String    @db.VarChar(40)
   date_edition DateTime? @db.Date
@@ -85,12 +83,12 @@ model ouvrages {
 }
 
 model prets {
-  id          BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  id          Int       @id @default(autoincrement())
   num_pret    String    @db.VarChar(25)
   date_pret   DateTime  @db.Date
   date_retour DateTime? @db.Date
-  lecteur_id  BigInt    @db.UnsignedBigInt
-  livre_id    BigInt    @db.UnsignedBigInt
+  lecteur_id  Int
+  livre_id    Int
   created_at  DateTime  @default(now()) @db.Timestamp(0)
   updated_at  DateTime  @default(now()) @db.Timestamp(0)
   lecteurs    lecteurs  @relation(fields: [lecteur_id], references: [id], onDelete: Cascade, map: "fk2_LECTEUR")
@@ -101,7 +99,7 @@ model prets {
 }
 
 model utilisateurs {
-  id              BigInt            @id @default(autoincrement()) @db.UnsignedBigInt
+  id              Int               @id @default(autoincrement())
   nom_user        String            @db.VarChar(40)
   prenom_user     String?           @db.VarChar(40)
   mot_de_passe    String            @db.VarChar(15)
