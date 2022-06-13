@@ -1,11 +1,111 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model adhesions {
+  id         BigInt   @id @default(autoincrement()) @db.UnsignedBigInt
+  droit      Int
+  annee      Int
+  lecteur_id BigInt   @db.UnsignedBigInt
+  created_at DateTime @default(now()) @db.Timestamp(0)
+  updated_at DateTime @default(now()) @db.Timestamp(0)
+  lecteurs   lecteurs @relation(fields: [lecteur_id], references: [id], onDelete: Cascade, map: "fk1_LECTEUR")
+
+  @@index([lecteur_id], map: "lecteur_id")
+}
+
+model bibliothecaires {
+  id             BigInt       @id @default(autoincrement()) @db.UnsignedBigInt
+  im             String       @db.VarChar(25)
+  pseudo         String       @db.VarChar(25)
+  utilisateur_id BigInt       @db.UnsignedBigInt
+  created_at     DateTime     @default(now()) @db.Timestamp(0)
+  updated_at     DateTime     @default(now()) @db.Timestamp(0)
+  utilisateurs   utilisateurs @relation(fields: [utilisateur_id], references: [id], onDelete: Cascade, map: "fk1_UTILISATEUR")
+
+  @@index([utilisateur_id], map: "utilisateur_id")
+  @@index([utilisateur_id], map: "utilisateur_id_2")
+  @@index([utilisateur_id], map: "utilisateur_id_3")
+}
+
+model consultations {
+  id          BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  livre_id    BigInt    @db.UnsignedBigInt
+  date_cons   DateTime  @db.Date
+  heure_debut DateTime  @db.Time(0)
+  heur_fin    DateTime? @db.Time(0)
+  created_at  DateTime  @default(now()) @db.Timestamp(0)
+  updated_at  DateTime? @default(now()) @db.Timestamp(0)
+  livres      livres    @relation(fields: [livre_id], references: [id], onDelete: Cascade, map: "fk1_LIVRE")
+
+  @@index([livre_id], map: "livre_id")
+}
+
+model lecteurs {
+  id              BigInt      @id @default(autoincrement()) @db.UnsignedBigInt
+  num_lecteur     String      @db.VarChar(25)
+  nom_lecteur     String      @db.VarChar(40)
+  prenom_lecteur  String?     @db.VarChar(40)
+  adresse_lecteur String      @db.VarChar(40)
+  telephone       String?     @db.VarChar(40)
+  created_at      DateTime    @default(now()) @db.Timestamp(0)
+  updated_at      DateTime    @default(now()) @db.Timestamp(0)
+  adhesions       adhesions[]
+  prets           prets[]
+}
+
+model livres {
+  id            BigInt          @id @default(autoincrement()) @db.UnsignedBigInt
+  num_livre     String          @db.VarChar(25)
+  disponible    Boolean         @default(true)
+  nb_pret       Int             @default(0)
+  ouvrage_id    BigInt          @db.UnsignedBigInt
+  created_at    DateTime        @default(now()) @db.Timestamp(0)
+  updated_at    DateTime        @default(now()) @db.Timestamp(0)
+  ouvrages      ouvrages        @relation(fields: [ouvrage_id], references: [id], onDelete: Cascade, map: "fk1_OUVRAGE")
+  consultations consultations[]
+  prets         prets[]
+
+  @@index([ouvrage_id], map: "fk1_OUVRAGE")
+}
+
+model ouvrages {
+  id           BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  titre        String    @db.VarChar(40)
+  auteur       String    @db.VarChar(40)
+  date_edition DateTime? @db.Date
+  created_at   DateTime  @default(now()) @db.Timestamp(0)
+  updated_at   DateTime  @default(now()) @db.Timestamp(0)
+  livres       livres[]
+}
+
+model prets {
+  id          BigInt    @id @default(autoincrement()) @db.UnsignedBigInt
+  num_pret    String    @db.VarChar(25)
+  date_pret   DateTime  @db.Date
+  date_retour DateTime? @db.Date
+  lecteur_id  BigInt    @db.UnsignedBigInt
+  livre_id    BigInt    @db.UnsignedBigInt
+  created_at  DateTime  @default(now()) @db.Timestamp(0)
+  updated_at  DateTime  @default(now()) @db.Timestamp(0)
+  lecteurs    lecteurs  @relation(fields: [lecteur_id], references: [id], onDelete: Cascade, map: "fk2_LECTEUR")
+  livres      livres    @relation(fields: [livre_id], references: [id], onDelete: Cascade, map: "fk2_LIVRE")
+
+  @@index([lecteur_id], map: "lecteur_id")
+  @@index([livre_id], map: "livre_id")
+}
+
+model utilisateurs {
+  id              BigInt            @id @default(autoincrement()) @db.UnsignedBigInt
+  nom_user        String            @db.VarChar(40)
+  prenom_user     String?           @db.VarChar(40)
+  mot_de_passe    String            @db.VarChar(15)
+  created_at      DateTime          @default(now()) @db.Timestamp(0)
+  updated_at      DateTime          @default(now()) @db.Timestamp(0)
+  bibliothecaires bibliothecaires[]
 }
