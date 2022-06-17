@@ -1,0 +1,16 @@
+###
+GET http://localhost:3000/api/prets
+
+###
+GET http://localhost:3000/api/prets/4
+
+###
+POST http://localhost:3000/api/prets
+Content-Type: application/json
+
+{
+    "num_pret":"P2",
+    "date_pret":"2022-06-12", 
+    "lecteur_id":7, 
+    "livre_id":7
+}

@@ -13,6 +13,7 @@ app.get('/', async (req, res, next) => {
 });
 
 app.use('/api', require('./routes/api.route'));
+app.use('/api/prets', require('./routes/pret.route'));
 
 app.use((req, res, next) => {
   next(createError.NotFound());
