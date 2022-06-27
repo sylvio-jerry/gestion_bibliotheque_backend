@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : lun. 27 juin 2022 à 11:07
+-- Généré le : lun. 27 juin 2022 à 17:48
 -- Version du serveur : 10.4.24-MariaDB
 -- Version de PHP : 7.4.29
 
@@ -161,9 +161,9 @@ INSERT INTO `prets` (`id`, `num_pret`, `date_pret`, `date_retour`, `lecteur_id`,
 
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
-  `fullname` varchar(50) NOT NULL,
+  `fullname` varchar(75) NOT NULL,
   `pseudo` varchar(50) DEFAULT NULL,
-  `password` varchar(50) NOT NULL,
+  `password` varchar(75) NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -263,7 +263,7 @@ ALTER TABLE `prets`
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Contraintes pour les tables déchargées
