@@ -86,6 +86,18 @@ module.exports = {
                 sendError(res, "Invalid password")
             }
         }) 
+    }, 
+
+    logout: async (req, res, next) => {
+        // Check cookies 
+        const cookies = req.cookies
+        if(!cookies?.auth_token) return res.sendStatus(204)
+        const token = cookies.auth_token
+
+        // Clear cookie 
+        res.clearCookie('auth_token', { httpOnly: true, sameSite: 'None', secure: true })
+        // Send response 
+        sendResponse(res, null, "User logged out successfully")
     }
 }
 
