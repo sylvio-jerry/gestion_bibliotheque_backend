@@ -12,6 +12,8 @@ app.get('/', async (req, res, next) => {
   res.send({ message: 'Awesome it works 🐻' });
 });
 
+app.use('/api/users', require('./routes/auth.route'));
+
 app.use('/api', require('./routes/api.route'));
 app.use('/api/prets', require('./routes/pret.route'));
 

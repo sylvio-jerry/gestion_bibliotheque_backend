@@ -19,18 +19,6 @@ model adhesions {
   @@index([lecteur_id], map: "lecteur_id")
 }
 
-model bibliothecaires {
-  id             Int          @id @default(autoincrement())
-  im             String       @db.VarChar(25)
-  pseudo         String       @db.VarChar(25)
-  utilisateur_id Int
-  created_at     DateTime     @default(now()) @db.Timestamp(0)
-  updated_at     DateTime     @default(now()) @db.Timestamp(0)
-  utilisateurs   utilisateurs @relation(fields: [utilisateur_id], references: [id], onUpdate: Restrict, map: "fk1_UTILISATEUR")
-
-  @@index([utilisateur_id], map: "utilisateur_id")
-}
-
 model consultations {
   id          Int       @id @default(autoincrement())
   livre_id    Int
@@ -98,12 +86,11 @@ model prets {
   @@index([livre_id], map: "livre_id")
 }
 
-model utilisateurs {
-  id              Int               @id @default(autoincrement())
-  nom_user        String            @db.VarChar(40)
-  prenom_user     String?           @db.VarChar(40)
-  mot_de_passe    String            @db.VarChar(15)
-  created_at      DateTime          @default(now()) @db.Timestamp(0)
-  updated_at      DateTime          @default(now()) @db.Timestamp(0)
-  bibliothecaires bibliothecaires[]
+model users {
+  id         Int      @id @default(autoincrement())
+  fullname   String   @db.VarChar(50)
+  pseudo     String?  @db.VarChar(50)
+  password   String   @db.VarChar(50)
+  created_at DateTime @default(now()) @db.Timestamp(0)
+  updated_at DateTime @default(now()) @db.Timestamp(0)
 }
