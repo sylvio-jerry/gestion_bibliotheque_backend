@@ -37,6 +37,7 @@ module.exports = {
                 }
             })
             
+            delete newUser.password 
             sendResponse(res, newUser, "User created successfully")
 
         } catch (error) {
