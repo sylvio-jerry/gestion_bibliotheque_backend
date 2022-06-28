@@ -140,6 +140,10 @@ module.exports = {
         } catch (error) {
             next(error)
         }
+    }, 
+
+    nombrePretParLivre: async (req, res, next) => {
+        
     }
 
 }
