@@ -18,9 +18,7 @@ module.exports = {
         
         // Check if the user already exists 
         const user = await users.findFirst({
-            where: {
-                pseudo
-            }
+            where: { pseudo }
         })
         if(user) sendError(res, "User already exists")
 
@@ -55,9 +53,7 @@ module.exports = {
 
         // Check if the pseudo exists 
         const user = await users.findFirst({
-            where: {
-                pseudo
-            }
+            where: { pseudo }
         })
         if(!user) sendResponse(res, null, "User does not exist")
 

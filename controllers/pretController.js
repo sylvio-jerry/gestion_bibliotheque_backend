@@ -110,6 +110,36 @@ module.exports = {
         } catch (error) {
             next(error)
         }
+    }, 
+
+    getPretParLivre: async (req, res, next) => {
+        try {
+            const { id } = req.params 
+            const pretParLivre = await livres.findMany({
+                where: { id: parseInt(id) }, 
+                include: { prets: true }
+            })
+
+            sendResponse(res, pretParLivre, "Liste des prets par livre")
+
+        } catch (error) {
+            next(error)
+        }
+    }, 
+
+    getPretParLecteur: async (req, res, next) => {
+        try {
+            const { id } = req.params 
+            const pretParLecteur = await lecteurs.findMany({
+                where: { id: Number(id) }, 
+                include: { prets: true }
+            })
+
+            sendResponse(res, pretParLecteur, "Liste des prets par lecteur")
+
+        } catch (error) {
+            next(error)
+        }
     }
 
 }
