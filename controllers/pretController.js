@@ -73,7 +73,7 @@ module.exports = {
 
         // get date record
         const pret = await prets.findFirst({
-            where: { id: +id },
+            where: { id: +id }, // convert id to number <===> parseInt(id), Number(id)
             select: { date_pret: true }
         })
 
