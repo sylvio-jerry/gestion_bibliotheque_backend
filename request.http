@@ -2,7 +2,10 @@
 GET http://localhost:3000/api/prets
 
 ###
-GET http://localhost:3000/api/prets/4
+GET http://localhost:3000/api/prets/5
+
+###
+GET http://localhost:3000/api/prets/lecteur/8
 
 ###
 POST http://localhost:3000/api/prets

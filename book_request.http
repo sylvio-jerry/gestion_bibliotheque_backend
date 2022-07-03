@@ -1,0 +1,57 @@
+###
+GET http://localhost:3000/api/livres
+
+###
+DELETE http://localhost:3000/api/livres/10
+
+###
+DELETE http://localhost:3000/api/livres
+Content-Type: application/json
+
+{
+ 
+    "arrayLivreId":[20,22]
+    
+}
+
+
+###
+GET http://localhost:3000/api/livres/lecteur/8
+
+
+###
+PUT http://localhost:3000/api/livres/27
+Content-Type: application/json
+
+{
+    "titre":"updated yes",
+    "date_edition":"2035-06-26", 
+    "auteur":"woman pdate", 
+    "disponible":false
+}
+
+###
+POST http://localhost:3000/api/livres
+Content-Type: application/json
+
+{
+    "disponible":false,
+    "titre":"new titre",
+    "auteur":"new auth",
+    "date_edition":"2018-10-06"
+}
+
+###
+PUT http://localhost:3000/api/livres/22
+Content-Type: application/json
+
+{
+    "num_livre":"LIV-22",
+    "disponible":false,
+    "titre":"livre22",
+    "auteur":"liv22 auth",
+    "date_edition":"2013-02-17"
+}
+
+###
+GET http://localhost:3000/api/livres/get/5
