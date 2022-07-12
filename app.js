@@ -17,7 +17,12 @@ app.get('/', async (req, res, next) => {
 app.use('/api/users', require('./routes/auth.route'));
 
 app.use('/api', require('./routes/api.route'));
+app.use('/api/accueils', require('./routes/accueil.route'));
 app.use('/api/prets', require('./routes/pret.route'));
+app.use('/api/lecteurs', require('./routes/lecteur.route'));
+app.use('/api/adhesions', require('./routes/adhesion.route'));
+app.use('/api/consultations', require('./routes/consultation.route'));
+
 
 app.use((req, res, next) => {
   next(createError.NotFound());
