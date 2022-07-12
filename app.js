@@ -18,6 +18,7 @@ app.use('/api/users', require('./routes/auth.route'));
 
 app.use('/api', require('./routes/api.route'));
 app.use('/api/prets', require('./routes/pret.route'));
+app.use('/api/livres', require('./routes/livre.route'));
 
 app.use((req, res, next) => {
   next(createError.NotFound());
