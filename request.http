@@ -17,3 +17,10 @@ Content-Type: application/json
     "lecteur_id":7, 
     "livre_id":7
 }
+###
+GET http://localhost:3000/api/lecteurs 
+
+###
+POST  http://localhost:3000/api/lecteurs
+###
+GET http://localhost:3000/api/consultations
